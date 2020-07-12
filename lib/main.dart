@@ -63,7 +63,7 @@ class _NubankHomeState extends State<NubankHome> {
             children: <Widget>[
               AccountDetails(),
               IgnorePointer(
-                              child: Container(
+                child: Container(
                   color: Colors.purple.withOpacity(opacity),
                 ),
               ),
@@ -120,15 +120,15 @@ class BottomDrawer extends StatelessWidget {
                           children: <Widget>[
                             OptionsItem(
                               icon: Icons.money_off,
-                              label: "Dividir Valor",
+                              label: "Split Value",
                             ),
                             OptionsItem(
                               icon: Icons.attach_money,
-                              label: "Doação",
+                              label: "Donation",
                             ),
                             OptionsItem(
-                              icon: Icons.mobile_screen_share,
-                              label: "Recarga",
+                              icon: Icons.thumb_up,
+                              label: "Leave Like",
                             ),
                           ],
                         ),
@@ -139,11 +139,11 @@ class BottomDrawer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             OptionsItem(
-                                label: "Empréstimos", icon: Icons.screen_share),
+                                label: "Loans", icon: Icons.screen_share),
                             OptionsItem(
-                                label: "Cobrar", icon: Icons.assignment_late),
+                                label: "Charge", icon: Icons.assignment_late),
                             OptionsItem(
-                              label: "Cartão Virtual",
+                              label: "Virtual Card",
                               icon: Icons.credit_card,
                             ),
                           ],
@@ -155,15 +155,15 @@ class BottomDrawer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             OptionsItem(
-                              label: "Depósito",
+                              label: "Deposit",
                               icon: Icons.account_balance_wallet,
                             ),
                             OptionsItem(
-                              label: "Configurações",
+                              label: "Please",
                               icon: Icons.settings,
                             ),
                             OptionsItem(
-                              label: "Ajuda",
+                              label: "Subscribe",
                               icon: Icons.help,
                             ),
                           ],
@@ -175,15 +175,15 @@ class BottomDrawer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             OptionsItem(
-                              label: "Bloquear Cartão",
+                              label: "Lock Card",
                               icon: Icons.lock,
                             ),
                             OptionsItem(
-                              label: "Indicar Amigos",
+                              label: "Invite Friends",
                               icon: Icons.people,
                             ),
                             OptionsItem(
-                              label: "Ajustar Limite",
+                              label: "Set Limit",
                               icon: Icons.add_shopping_cart,
                             ),
                           ],
@@ -220,7 +220,10 @@ class OptionsItem extends StatelessWidget {
               child: Icon(icon, color: Colors.white, size: 30),
             ),
           ),
-          Text(label, style: TextStyle(fontSize: 11),)
+          Text(
+            label,
+            style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+          )
         ],
       ),
     );
@@ -251,7 +254,10 @@ class AccountDetails extends StatelessWidget {
               ),
               Text(
                 "CodeMinute",
-                style: TextStyle(fontSize: 31, color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 31,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -263,13 +269,13 @@ class AccountDetails extends StatelessWidget {
             children: <Widget>[
               Expanded(
                   child: BalanceDetails(
-                value: "323,50",
-                label: "Minha Nuconta",
+                value: "323.50",
+                label: "Account Balance",
               )),
               Expanded(
                   child: BalanceDetails(
-                value: "1500,32",
-                label: "Fatura Atual",
+                value: "1,500.32",
+                label: "Current Bill",
               )),
             ],
           ),
@@ -315,7 +321,7 @@ class BalanceDetails extends StatelessWidget {
         children: <Widget>[
           RichText(
             text: TextSpan(style: TextStyle(color: color), children: [
-              TextSpan(text: "R\$", style: TextStyle(fontSize: 16)),
+              TextSpan(text: "\$", style: TextStyle(fontSize: 16)),
               TextSpan(text: value, style: TextStyle(fontSize: 30))
             ]),
           ),
@@ -332,26 +338,15 @@ class BalanceDetails extends StatelessWidget {
 class Activity extends StatelessWidget {
   const Activity({Key key}) : super(key: key);
 
-  _buildActivityItem(String name, String value, String date, IconData icon) {
-    return ListTile(
-      title: Text(
-        name,
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      leading: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Icon(icon),
-      ),
-      subtitle: Text("R\$ $value"),
-      trailing: Text(date),
-    );
-  }
-
   _buildActivityItemCustom(
-      String name, String value, String date, IconData icon, Color color) {
+      {String title,
+      String subtitle,
+      String trailing,
+      IconData icon,
+      Color color = Colors.black}) {
     return ListTile(
       title: Text(
-        name,
+        title,
         style: TextStyle(fontWeight: FontWeight.bold, color: color),
       ),
       leading: Padding(
@@ -362,11 +357,11 @@ class Activity extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        "R\$ $value",
+        subtitle,
         style: TextStyle(color: color),
       ),
       trailing: Text(
-        date,
+        trailing,
         style: TextStyle(color: color),
       ),
     );
@@ -377,18 +372,43 @@ class Activity extends StatelessWidget {
     return Container(
       child: ListView(
         children: <Widget>[
-          _buildActivityItem("Uberbr Eats", "12,32", "Hoje", Icons.train),
-          _buildActivityItem("Shopping do Brasil", "122,50", "Ontem", Icons.home),
-          _buildActivityItem(
-              "Viagem - Ubatuba", "399,99", "4 Jul", Icons.airplanemode_active),
-          _buildActivityItemCustom("Pagamento Recebido", "612,32", "1 JUL",
-              Icons.monetization_on, Colors.green[700]),
-          _buildActivityItemCustom("Fatura Fechada", "612.32", "1 JUL",
-              Icons.monetization_on, Colors.red[700]),
-          _buildActivityItem(
-              "Uber", "12,32", "27 JUN", Icons.monetization_on),
-          _buildActivityItem(
-              "Uber", "12,32", "27 JUN", Icons.monetization_on)
+          _buildActivityItemCustom(
+              title: "Uberbr Eats",
+              subtitle: "\$ 12.32",
+              trailing: "Today",
+              icon: Icons.train),
+          _buildActivityItemCustom(
+              title: "Mall",
+              subtitle: "\$ 122.50",
+              trailing: "Yesterday",
+              icon: Icons.home),
+          _buildActivityItemCustom(
+              title: "Expensive Tickets",
+              subtitle: "\$ 399.99",
+              trailing: "4 JUL",
+              icon: Icons.airplanemode_active),
+          _buildActivityItemCustom(
+              title: "Payment Received",
+              subtitle: "\$  612.32",
+              trailing: "1 JUL",
+              icon: Icons.monetization_on,
+              color: Colors.green[700]),
+          _buildActivityItemCustom(
+              title: "Bill closed",
+              subtitle: "\$  612.32",
+              trailing: "1 JUL",
+              icon: Icons.monetization_on,
+              color: Colors.red[700]),
+          _buildActivityItemCustom(
+              title: "Uber",
+              subtitle: "\$ 12.32",
+              trailing: "27 JUN",
+              icon: Icons.monetization_on),
+          _buildActivityItemCustom(
+              title: "Uber",
+              subtitle: "\$ 14.50",
+              trailing: "27 JUN",
+              icon: Icons.monetization_on)
         ],
       ),
     );
