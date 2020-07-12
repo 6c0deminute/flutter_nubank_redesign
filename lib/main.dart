@@ -279,6 +279,15 @@ class AccountDetails extends StatelessWidget {
               )),
             ],
           ),
+          SizedBox(height: 12,),
+          Row(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 38.0),
+                child: Text("Activities", style: TextStyle(color: Colors.white),),
+              ),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
@@ -295,7 +304,7 @@ class AccountDetails extends StatelessWidget {
                   ],
                 ),
                 padding: EdgeInsets.all(10),
-                margin: EdgeInsets.symmetric(vertical: 25),
+                margin: EdgeInsets.only(bottom: 25),
                 height: 400,
                 child: Activity()),
           ),
